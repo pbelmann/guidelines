@@ -36,3 +36,15 @@ There are three different types of tasks which are depicted in the following fig
 * Backlog items that must be refined are defined as GitHub projects. Those items must be discussed with the developer teams in order to prepare tasks for the next sprint.
 
 * Sprint items are tasks that are defined as small and independent as possible.
+
+### Backlog Item Priority
+
+Backlog Items are prioritized using the MoSCoW method where Tasks are labeled with
+
+* Must have
+
+* Should have
+
+* Could have
+
+* Won't have

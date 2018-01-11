@@ -22,6 +22,8 @@ We say a task (sprint item) is done if
 
 * It is documented either in the technical or the user documentation.
 
+* The final result is available on the staging instance.
+
 ## Task Management
 
 There are three different types of tasks which are depicted in the following figure:

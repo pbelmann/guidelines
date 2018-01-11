@@ -26,7 +26,7 @@ We say a task (sprint item) is done if
 
 There are three different types of tasks which are depicted in the following figure:
 
-
+![Task Triangle](sprint_triangle.png)
 
 * The main vision is represented in Epics. Epics are not definied in detail and can change in future. 
   Those can be found in the Github Repository. They are created by the product owner.

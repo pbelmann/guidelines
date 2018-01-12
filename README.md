@@ -14,6 +14,14 @@ It is based on the four values:
 
 * Courage
 
+and has three conditions:
+
+* Transparency (Information must be available to everyone)
+
+* Inspection (Decide in specific time intervals if the current working method is effective.)
+
+* Adaption (If the teams detects methods that can be improved it must do that!)
+
 ## Definition of Done
 
 We say a task (sprint item) is done if 

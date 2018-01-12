@@ -61,14 +61,16 @@ Backlog Items are prioritized using the MoSCoW method where Tasks are labeled wi
 
 Our Meetings consist of four parts:
 
-* Sprint planning 1:
+* **Sprint planning 1:**
   This part answers the question which product increment should be created in the next sprint.
   It is based on the current product backlog, the current development status and the velocity 
   and net work time of the team. The product owner presents product backlog for the next sprint.
   Just the development team is able to decide which items can be done during the next sprint.
   At the end the development team must define a common goal for the next sprint.
 
-* Sprint planning 2:
+* **Sprint planning 2:**
   This part answers how we should approach the tasks. The product owner presents the backlog items which are sorted by
   priority. The team develops based on those backlog items tasks which represent the sprint backlog. Those tasks should not   take more time then one working day.
+  
+* **Sprint Review**
   

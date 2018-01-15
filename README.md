@@ -2,7 +2,7 @@
 
 This project is organized by using elements of [scrum](https://en.wikipedia.org/wiki/Scrum_(software_development)).
 
-It is based on the four values:
+It is based on the five values:
 
 * Commitment
 

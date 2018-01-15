@@ -73,4 +73,11 @@ Our Meetings consist of four parts:
   priority. The team develops based on those backlog items tasks which represent the sprint backlog. Those tasks should not   take more time then one working day.
   
 * **Sprint Review**
+  The developer team should show every new feature in the staging version of the portal. The product owner must check which sprint items are done. (99% percent of the task is not done!). The developer team decides which items should be part of the next sprint or maybe can not be continued. Under certain conditions the product backlog must be adapted. 
   
+* **Retrospective**
+  In the context of the Retrospective the developer team tries to improve the next sprint based on the experiece of the last one. For example the team could decide to modify the definition of done. Questions should be asked like 
+    * How was the collaboration with others?
+    * How can we improve our communication?
+    * Do we really need all the development tools? Maybe we can remove our even swap out specific tools.
+    * How can we build faster and better our product?

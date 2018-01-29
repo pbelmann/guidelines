@@ -81,3 +81,9 @@ Our Meetings consist of four parts:
     * How can we improve our communication?
     * Do we really need all the development tools? Maybe we can remove our even swap out specific tools.
     * How can we build faster and better our product?
+
+## Development Workflow
+
+See the following development workflow:
+
+[Development Workflow](development-workflow.md)

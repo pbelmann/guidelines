@@ -57,6 +57,12 @@ Backlog Items are prioritized using the MoSCoW method where Tasks are labeled wi
 
 * Won't have
 
+### Sprint Item Priority
+
+Sprint Items are priorities by setting the order of sprint items in
+the Backlog Item. Here the top item represents the most important one and the 
+lowermost the most unimportant issue.
+
 ## Meetings
 
 Our Meetings consist of four parts:

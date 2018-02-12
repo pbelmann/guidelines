@@ -16,8 +16,10 @@ Pattern for branch names are:
 
 **'fix/name'**
 
-Feature branches should only be merged into the development branch.
-The master branch contains the code of the latest release.
+Feature branches should only be merged into the **development** branch.
+The **master** branch contains the code of the latest release and represents production ready code. 
+
+**(Optional) Staging Branch:** The staging branch contains only the code that can be viewed on the staging machine.
 
 ## Releases
 

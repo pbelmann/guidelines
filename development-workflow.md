@@ -1,7 +1,5 @@
 # Development workflow
 
-**Version:0.1.0**
-
 The development should follow the [github flow](https://guides.github.com/introduction/flow/) which means that features or fixes should be pushed into a separate branch and merged into the master or development branch by creating a pull request.
 
 This allows us to organize code reviews and run automated tests before updating the development/master branch.
@@ -16,10 +14,8 @@ Pattern for branch names are:
 
 **'fix/name'**
 
-Feature branches should only be merged into the **development** branch.
+Feature branches should only be merged into the **development** branch. 
 The **master** branch contains the code of the latest release and represents production ready code. 
-
-**(Optional) Staging Branch:** The staging branch contains only the code that can be viewed on the staging machine.
 
 ## Releases
 

@@ -86,7 +86,8 @@ Our Meetings consist of four parts:
 
 * **Sprint planning 2:**
   This part answers how we should approach the tasks. The product owner presents the backlog items which are sorted by
-  priority. The team develops based on those backlog items tasks which represent the sprint backlog. Those tasks should not   take more time then one working day.
+  priority. The team develops based on those backlog items tasks which represent the sprint backlog. Those tasks should not   take more time then one working day. The tasks are valued by using story points for estimating the work of the next spint.
+  How to evaluted tasks by using story points is described [here](story_points.md).
   
 ## Development Workflow
 

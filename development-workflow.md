@@ -25,7 +25,7 @@ The release version names and tags should follow [semantic versioning](http://se
 
 Commit messages should follow the angular.js convention making it easy to autogenerate release notes using [clog](https://github.com/clog-tool/clog-cli):
 
-https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit
+https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits
 
 ***Example Commit Message:***
 

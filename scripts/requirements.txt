@@ -1,0 +1,4 @@
+requests==2.21.0
+google_auth_oauthlib==0.4.0
+protobuf==3.8.0
+google_api_python_client==1.7.9

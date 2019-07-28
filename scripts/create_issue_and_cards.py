@@ -19,6 +19,7 @@ HEADERS = {
     "Accept": "application/vnd.github.v3+json application/vnd.github.inertia-preview+json application/vnd.github.symmetria-preview+json"}
 OWNER = "deNBI"
 WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
+DEFAULT_SPECIFIC_PROEJCT_COLUMN = "To do"
 ISSUES_DICT = {}
 
 
@@ -121,7 +122,8 @@ def create_issue(issue):
 
 def add_label_to_issue(labels, issue):
     params = {"labels": labels}
-    url = "https://api.github.com/repos/{}/{}/issues/{}/labels".format(OWNER, issue.repository, issue.number)
+    url = "https://api.github.com/repos/{}/{}/issues/{}/labels".format(OWNER, issue.repository,
+                                                                       issue.number)
     headers = HEADERS
     r = requests.post(
         url=url,
@@ -188,7 +190,8 @@ def create_card_for_issue(issue, column):
 def values_to_issue_cards(values):
     issue_cards = []
     for row in values:
-        new_issue_card = IssueCard(title=row[0], description=row[1], repository=row[2], labels=row[3].split(" "),
+        new_issue_card = IssueCard(title=row[0], description=row[1], repository=row[2],
+                                   labels=row[3].split(" "),
                                    project=row[4],
                                    column=row[5])
         issue_cards.append(new_issue_card)
@@ -198,16 +201,22 @@ def values_to_issue_cards(values):
 def create_issues_and_cards(issue_cards):
     for issue in issue_cards:
         issue_card_column = get_specific_column(filter_name=issue.column, columns=COLUMNS)
+        specific_issue_project = filter_projects(filter_name=issue.project, projects=projects)
+        specific_issue_project_columns = get_project_columns(specific_issue_project)
+        specific_issue_project_column = get_specific_column(
+            filter_name=DEFAULT_SPECIFIC_PROEJCT_COLUMN, columns=specific_issue_project_columns)
         if not check_if_issue_exist_in_repository(issue=issue):
             issue = create_issue(issue)
             add_label_to_issue(labels=issue.labels, issue=issue)
             create_card_for_issue(issue=issue, column=issue_card_column)
+            create_card_for_issue(issue=issue, column=specific_issue_project_column)
 
 
-def main():
+def read_issues_from_spreadsheet():
     """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
-    """
+   Prints values from a sample spreadsheet.
+   """
+
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -234,12 +243,12 @@ def main():
     result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range=SAMPLE_RANGE_NAME).execute()
     values = result.get('values', [])
+    return values
 
-    if not values:
-        print('No data found.')
-    else:
-        issue_cards = values_to_issue_cards(values=values)
-        create_issues_and_cards(issue_cards=issue_cards)
+
+def spreadsheet_issues_to_card_issues(issues):
+    issue_cards = values_to_issue_cards(values=issues)
+    create_issues_and_cards(issue_cards=issue_cards)
 
 
 if __name__ == '__main__':
@@ -247,7 +256,8 @@ if __name__ == '__main__':
     USER_NAME = input()
     print("Enter password:")
     PASSWORD = getpass.getpass()
+    spreadsheet_issues = read_issues_from_spreadsheet()
     projects = get_organisation_projects()
     weekly_project = filter_projects(filter_name=WEEKLY_SPRINT_PROJECT, projects=projects)
     COLUMNS = get_project_columns(weekly_project)
-    main()
+    spreadsheet_issues_to_card_issues(spreadsheet_issues)

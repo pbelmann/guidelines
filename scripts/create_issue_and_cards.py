@@ -192,8 +192,8 @@ def values_to_issue_cards(values):
     for row in values:
         new_issue_card = IssueCard(title=row[0], description=row[1], repository=row[2],
                                    labels=row[3].split(" "),
-                                   project=row[4],
-                                   column=row[5])
+                                   project=WEEKLY_SPRINT_PROJECT,
+                                   column=row[4])
         issue_cards.append(new_issue_card)
     return issue_cards
 

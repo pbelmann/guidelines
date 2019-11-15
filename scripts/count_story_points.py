@@ -8,8 +8,8 @@ READY_FOR_REVIEW_COLUMN = "Ready for Sprint Review"
 
 WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
 IN_PROGRESS = "In Progress"
-CURRENT_SPRINT="Current Sprint"
-BUGS="Bugs"
+CURRENT_SPRINT = "Current Sprint"
+BUGS = "Bugs"
 HEADERS = {
     "Accept": "application/vnd.github.v3+json application/vnd.github.inertia-preview+json application/vnd.github.symmetria-preview+json"}
 
@@ -143,32 +143,32 @@ def count_min_points(cards):
     return counter
 
 
-
 def count_done_points(columns):
     column = get_specific_column(filter_name=READY_FOR_REVIEW_COLUMN, columns=columns)
     cards = get_cards_by_columns(column=column)
-    done,bugs=count_min_points_with_post_bugs(cards)
-    print("Done: {}\nBugs: {}".format(done,bugs))
+    done, bugs = count_min_points_with_post_bugs(cards)
+    print("Done: {}\nBugs: {}".format(done, bugs))
 
 
 def count_done_reevalation(columns):
     column = get_specific_column(filter_name=IN_PROGRESS, columns=columns)
     cards = get_cards_by_columns(column=column)
     print("Gone to Re-evaluation: {}".format(count_reevaluation_cards(cards)))
-    
+
+
 def count_planned_points(columns):
     column = get_specific_column(filter_name=CURRENT_SPRINT, columns=columns)
     cards = get_cards_by_columns(column=column)
-    current_points=count_min_points(cards)
+    current_points = count_min_points(cards)
     column = get_specific_column(filter_name=BUGS, columns=columns)
     cards = get_cards_by_columns(column=column)
-    bugs_points=count_min_points(cards)
-    full=int(current_points) + int(bugs_points)
+    bugs_points = count_min_points(cards)
+    column = get_specific_column(filter_name=IN_PROGRESS, columns=columns)
+
+    cards = get_cards_by_columns(column=column)
+    in_progress_planned = count_min_points(cards)
+    full = int(current_points) + int(bugs_points) + int(in_progress_planned)
     print("Planned points: {}".format(full))
-
-    
-
-
 
 
 if __name__ == "__main__":

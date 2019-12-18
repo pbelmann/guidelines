@@ -89,6 +89,27 @@ Our Meetings consist of four parts:
   priority. The team develops based on those backlog items tasks which represent the sprint backlog. Those tasks should not   take more time then one working day. The tasks are valued by using story points for estimating the work of the next sprint.
   How to evaluted tasks by using story points is described [here](story_points.md).
   
+  
+## Bug Commissioner
+For each sprint there is a bug commissioner.
+
+The tasks of the bug commissioner are as follows:
+
+* **Second Reviewer**
+  The bug commissioner is always the second reviewer. He/She makes sure that all points of the Issue Template are fulfilled.
+  This includes adjusting the existing e2e tests if necessary.
+  
+* **Staging**
+  He/She is responsible for ensuring that the staging instance is up-to-date and online at the sprint meeting.
+  Therefore he/she sets a deadline for the other team members up to which changes will still be included.
+  
+* **Releasing**
+  He/She updates the various changelogs and creates the new releases.
+  
+* **Bugs**
+  He/She creates the upcoming bug issues in github and is initially responsible for them, but can also forward the issues if needed.
+
+
 ## Development Workflow
 
 See the following development workflow:

@@ -108,7 +108,9 @@ The tasks of the bug commissioner are as follows:
   
 * **Bugs**
   He/She creates the upcoming bug issues in github and is initially responsible for them, but can also forward the issues if needed.
-
+  
+* **Dependabot PRs**
+  The commissioner reviews pull requests created by dependabot.
 
 ## Development Workflow
 

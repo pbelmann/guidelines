@@ -112,6 +112,21 @@ The tasks of the bug commissioner are as follows:
 * **Dependabot PRs**
   The commissioner reviews pull requests created by dependabot.
 
+
+## Feature Commissioner
+For each sprint there is a feature commissioner.
+The role of the feature commissioner is usually taken over by the person who was the bug comissioner in the previous sprint.
+
+The Commissioner has the following responsibilities:
+
+* **Listing new features**
+  The commissioner reviews the features of the new releases that have been released in his sprint.
+He lists the new features and user-relevant changes and saves them together with a short description in the CHANGELOG of the respective repository.
+
+* **Writing a post**
+  If a new post is to be created in the course of the sprint, the commissioner summarizes the points in the respective changelogs into a short text so that it can be published. The publication is tracked via WordPress. In the course of this the changelogs are emptied again, so that the commissioner of the following sprint can start with an empty list. 
+
+
 ## Development Workflow
 
 See the following development workflow:

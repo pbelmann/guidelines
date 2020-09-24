@@ -75,6 +75,7 @@ into the staging release, is Thursday 16:00 every week. Dev states after this de
   
 * **Releasing**  
 He/She updates the various changelogs and creates the new releases.
+The releases are based on the state of the staging and can be created as soon as the changes on the staging are reviewed in the meeting by all team members and no issues remain in the "Release-Critical"-column of the sprint-board.
   
 * **Bugs**  
 He/She creates the incoming bug issues in github and is initially responsible for them, but can also forward the issues if needed.

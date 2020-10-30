@@ -83,6 +83,8 @@ He/She creates the incoming bug issues in github and is initially responsible fo
 * **Dependabot PRs**  
 The commissioner reviews pull requests created by dependabot.
 
+**The priority of the Sprint Commissioner is to handle bugs and user requests. This also needs to be taken into account when planning the sprint.**
+
 
 ## Feature Commissioner
 For each sprint there is a feature commissioner.  

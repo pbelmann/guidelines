@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
 from __future__ import print_function
-import pickle
+
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+import pickle
+import sys
+
 import requests
-import getpass
+from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
@@ -15,12 +17,28 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1xfiYlW0Icpvu0-ERY55cjpMsJW-YwS5gHBlrivHPNtE'
 SAMPLE_RANGE_NAME = 'A2:G'
-HEADERS = {
-    "Accept": "application/vnd.github.v3+json application/vnd.github.inertia-preview+json application/vnd.github.symmetria-preview+json"}
+
+try:
+    ACCESS_TOKEN = sys.argv[1]
+    HEADERS = {
+        "Accept": "application/vnd.github.v3+json application/vnd.github.inertia-preview+json application/vnd.github.symmetria-preview+json",
+        "Authorization": "Bearer " + ACCESS_TOKEN}
+except:
+    print("The first param should be your access_token")
+    sys.exit(1)
+
 OWNER = "deNBI"
 WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
 DEFAULT_SPECIFIC_PROEJCT_COLUMN = "To do"
 ISSUES_DICT = {}
+
+
+def check_for_errors(resp, *args, **kwargs):
+    try:
+        resp.raise_for_status()
+    except requests.HTTPError as e:
+        print("Request failed! Please Check if u use the right token!")
+        sys.exit(1)
 
 
 class IssueCard:
@@ -62,7 +80,7 @@ def get_issues_by_repository(repository):
     r = requests.get(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     issues = r.json()
@@ -71,7 +89,7 @@ def get_issues_by_repository(repository):
         r = requests.get(
             url=r.links["next"]["url"],
             headers=headers,
-            auth=(USER_NAME, PASSWORD),
+            hooks={"response": check_for_errors},
 
         )
         issues.extend(r.json())
@@ -85,7 +103,7 @@ def get_cards_by_columns(column):
     r = requests.get(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     cards = r.json()
@@ -94,7 +112,7 @@ def get_cards_by_columns(column):
         r = requests.get(
             url=r.links["next"]["url"],
             headers=headers,
-            auth=(USER_NAME, PASSWORD),
+            hooks={"response": check_for_errors},
 
         )
         cards.extend(r.json())
@@ -109,8 +127,8 @@ def create_issue(issue):
     r = requests.post(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
-        json=params
+        json=params,
+        hooks={"response": check_for_errors},
 
     )
     vals = r.json()
@@ -128,8 +146,8 @@ def add_label_to_issue(labels, issue):
     r = requests.post(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
-        json=params
+        json=params,
+        hooks={"response": check_for_errors},
 
     )
     return r.json()
@@ -141,7 +159,7 @@ def get_project_columns(project):
     r = requests.get(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     return r.json()
@@ -160,7 +178,7 @@ def get_organisation_projects():
     r = requests.get(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     return r.json()
@@ -180,8 +198,8 @@ def create_card_for_issue(issue, column):
     r = requests.post(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
-        json=params
+        json=params,
+        hooks={"response": check_for_errors},
 
     )
     return issue
@@ -252,10 +270,6 @@ def spreadsheet_issues_to_card_issues(issues):
 
 
 if __name__ == '__main__':
-    print("Enter username:")
-    USER_NAME = input()
-    print("Enter password:")
-    PASSWORD = getpass.getpass()
     spreadsheet_issues = read_issues_from_spreadsheet()
     projects = get_organisation_projects()
     weekly_project = filter_projects(filter_name=WEEKLY_SPRINT_PROJECT, projects=projects)

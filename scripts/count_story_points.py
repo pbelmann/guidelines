@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import getpass
-import requests
 import functools
+import sys
+
+import requests
 
 READY_FOR_REVIEW_COLUMN = "Ready for Sprint Review"
 
@@ -10,8 +11,23 @@ WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
 IN_PROGRESS = "In Progress"
 CURRENT_SPRINT = "Current Sprint"
 BUGS = "Bugs"
-HEADERS = {
-    "Accept": "application/vnd.github.v3+json application/vnd.github.inertia-preview+json application/vnd.github.symmetria-preview+json"}
+try:
+    ACCESS_TOKEN = sys.argv[1]
+    HEADERS = {
+        "Accept": "application/vnd.github.v3+json application/vnd.github.inertia-preview+json application/vnd.github.symmetria-preview+json",
+        "Authorization": "Bearer " + ACCESS_TOKEN}
+except:
+    print("The first param should be your access_token")
+    sys.exit(1)
+
+
+def check_for_errors(resp, *args, **kwargs):
+    try:
+        resp.raise_for_status()
+    except requests.HTTPError as e:
+        print("Request failed! Please Check if u use the right token!")
+        sys.exit(1)
+
 
 
 def get_organisation_projects():
@@ -20,7 +36,7 @@ def get_organisation_projects():
     r = requests.get(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     return r.json()
@@ -31,7 +47,7 @@ def get_issue(content_url):
     r = requests.get(
         url=url,
         headers=HEADERS,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     return r.json()
@@ -50,7 +66,7 @@ def get_project_columns(project):
     r = requests.get(
         url=url,
         headers=headers,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     return r.json()
@@ -68,7 +84,7 @@ def get_cards_by_columns(column):
     r = requests.get(
         url=url,
         headers=HEADERS,
-        auth=(USER_NAME, PASSWORD),
+        hooks={"response": check_for_errors},
 
     )
     cards = r.json()
@@ -76,8 +92,8 @@ def get_cards_by_columns(column):
         print("Next Page: {}".format(r.links["next"]["url"]))
         r = requests.get(
             url=r.links["next"]["url"],
-            headers=headers,
-            auth=(USER_NAME, PASSWORD),
+            headers=HEADERS,
+            hooks={"response": check_for_errors},
 
         )
         cards.extend(r.json())
@@ -172,10 +188,6 @@ def count_planned_points(columns):
 
 
 if __name__ == "__main__":
-    print("Enter username:")
-    USER_NAME = input()
-    print("Enter password:")
-    PASSWORD = getpass.getpass()
     projects = get_organisation_projects()
     weekly_project = filter_projects(filter_name=WEEKLY_SPRINT_PROJECT, projects=projects)
     columns = get_project_columns(weekly_project)

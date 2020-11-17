@@ -49,5 +49,13 @@ The [landing page](https://github.com/deNBI/landing_page) repository contains th
 Contains information about groups, resources and members.
 - [Openstack Bielefeld](https://openstack.cebitec.uni-bielefeld.de)  
 Dashboard for openstack projects and our simplevm pool project. E.g. contains virtual machines, volumes and snapshots.
-- [Staging](https://portal-dev.denbi.de/)
+- [Staging](https://portal-dev.denbi.de/)  
+- [Local BUG throwing link](http://localhost:8000/api/v0/voManagers/test_bug/?error=0)  
+Depending on error number different errors:  
+0: raise exception  
+1: logger.error  
+2: catched exception and logger.exception  
+x: error because no response  
+- [OIDC Token list](https://login.elixir-czech.org/oidc/)  
+Choose links on the left site to manage approved sites and see active OIDC tokens.
 

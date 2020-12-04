@@ -76,3 +76,8 @@ Reviewed issues from **Ready for sprint review** which are found to be not done,
 Issues that are working on the staging (or have been completed otherwise if they are a non-code issue), should be moved here so that we may discuss it during sprint review.
 - **Done**  
 Once an issue has hit our definition of done (see README.md), it should be closed and moved here. Items in this column can be deleted if the column gets too full.
+
+
+## On the Cloud-Portal repository
+We also release the Cloud-Portal repository. When merging staging into master, release the new version with a description of the changes.
+This includes changes to environment variables, settings and ansible tags and variables.

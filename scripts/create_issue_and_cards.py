@@ -30,15 +30,15 @@ except:
 OWNER = "deNBI"
 WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
 DEFAULT_SPECIFIC_PROEJCT_COLUMN = "To do"
-ISSUES_DICT = {}
 
 
 def check_for_errors(resp, *args, **kwargs):
     try:
         resp.raise_for_status()
     except requests.HTTPError as e:
-        print("Request failed! Please Check if u use the right token!")
-        sys.exit(1)
+        print(e)
+        print(f"Request failed! Content:{resp.content} ")
+    # sys.exit(1)
 
 
 class IssueCard:
@@ -57,12 +57,9 @@ class IssueCard:
 
 
 def check_if_issue_exist_in_repository(issue):
-    global ISSUES_DICT
     try:
-        if issue.repository not in ISSUES_DICT:
-            rep_issues = get_issues_by_repository(repository=issue.repository)
-        else:
-            rep_issues = ISSUES_DICT[issue.repository]
+        rep_issues = get_issues_by_repository(repository=issue.repository)
+
         for rep_issue in rep_issues:
             if issue.title == rep_issue["title"]:
                 print("Issue {} already exists".format(issue))
@@ -75,6 +72,7 @@ def check_if_issue_exist_in_repository(issue):
 
 
 def get_issues_by_repository(repository):
+    print(f"rep: {repository}")
     url = "https://api.github.com/repos/{}/{}/issues".format(OWNER, repository)
     headers = HEADERS
     r = requests.get(
@@ -93,7 +91,6 @@ def get_issues_by_repository(repository):
 
         )
         issues.extend(r.json())
-    ISSUES_DICT.update({repository: issues})
     return issues
 
 
@@ -134,7 +131,7 @@ def create_issue(issue):
     vals = r.json()
     issue.number = vals["number"]
     issue.id = vals["id"]
-    print("Created Issue: {}".format(issue))
+    print("Created Issue:\n\tTitle:{0.title}:\n\t\tDescription:{0.description}".format(issue))
     return issue
 
 
@@ -154,6 +151,9 @@ def add_label_to_issue(labels, issue):
 
 
 def get_project_columns(project):
+    project_name = project["name"]
+    print(f"Get columns from organisation {project_name}")
+
     url = "https://api.github.com/projects/{}/columns".format(project["id"])
     headers = HEADERS
     r = requests.get(
@@ -162,7 +162,11 @@ def get_project_columns(project):
         hooks={"response": check_for_errors},
 
     )
-    return r.json()
+    columns = r.json()
+    columns_names = [c["name"] for c in columns]
+    print(f"Found columns from organisation {columns_names}")
+
+    return columns
 
 
 def get_specific_column(filter_name, columns):
@@ -173,6 +177,8 @@ def get_specific_column(filter_name, columns):
 
 
 def get_organisation_projects():
+    print(f"Get projects from organisation deNBI")
+
     url = "https://api.github.com/orgs/deNBI/projects"
     headers = HEADERS
     r = requests.get(
@@ -185,6 +191,9 @@ def get_organisation_projects():
 
 
 def filter_projects(filter_name, projects):
+    project_names = [pr["name"] for pr in projects]
+    print(f"Searching for {filter_name} project  in {project_names}")
+
     for project in projects:
         if filter_name == project['name']:
             return project
@@ -202,38 +211,41 @@ def create_card_for_issue(issue, column):
         hooks={"response": check_for_errors},
 
     )
+
     return issue
 
 
 def values_to_issue_cards(values):
     issue_cards = []
-    for row in values:
-        new_issue_card = IssueCard(title=row[0], description=row[1], repository=row[2],
-                                   labels=row[3].split(" "),
-                                   project=WEEKLY_SPRINT_PROJECT,
-                                   column=row[4])
-        issue_cards.append(new_issue_card)
+    for idx,row in enumerate(values):
+        if row[0] and row[1] and row[2] and row[3] and row[4]:
+            new_issue_card = IssueCard(title=row[0], description=row[1], repository=row[2],
+                                       labels=row[3].split(" "),
+                                       project=WEEKLY_SPRINT_PROJECT,
+                                       column=row[4])
+            issue_cards.append(new_issue_card)
+        else:
+            print(f"Spreadsheet row {idx} is missing some entrys!")
     return issue_cards
 
 
 def create_issues_and_cards(issue_cards):
     for issue in issue_cards:
         issue_card_column = get_specific_column(filter_name=issue.column, columns=COLUMNS)
-        specific_issue_project = filter_projects(filter_name=issue.project, projects=projects)
-        specific_issue_project_columns = get_project_columns(specific_issue_project)
-        specific_issue_project_column = get_specific_column(
-            filter_name=DEFAULT_SPECIFIC_PROEJCT_COLUMN, columns=specific_issue_project_columns)
+
         if not check_if_issue_exist_in_repository(issue=issue):
             issue = create_issue(issue)
-            add_label_to_issue(labels=issue.labels, issue=issue)
+            if issue.labels:
+                add_label_to_issue(labels=issue.labels, issue=issue)
             create_card_for_issue(issue=issue, column=issue_card_column)
-            create_card_for_issue(issue=issue, column=specific_issue_project_column)
 
 
 def read_issues_from_spreadsheet():
     """Shows basic usage of the Sheets API.
    Prints values from a sample spreadsheet.
    """
+
+    print("Get Issues from spreadsheet")
 
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -261,10 +273,14 @@ def read_issues_from_spreadsheet():
     result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                 range=SAMPLE_RANGE_NAME).execute()
     values = result.get('values', [])
+    print(f"Got {len(values)} issues")
+
     return values
 
 
 def spreadsheet_issues_to_card_issues(issues):
+    print("Start creating issues")
+
     issue_cards = values_to_issue_cards(values=issues)
     create_issues_and_cards(issue_cards=issue_cards)
 

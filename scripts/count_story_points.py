@@ -11,6 +11,7 @@ WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
 IN_PROGRESS = "In Progress"
 CURRENT_SPRINT = "Current Sprint"
 BUGS = "Bugs"
+IGNORE_LIST = ["blocked"]
 try:
     ACCESS_TOKEN = sys.argv[1]
     HEADERS = {
@@ -103,13 +104,15 @@ def get_cards_by_columns(column):
 
 def count_reevaluation_cards(cards):
     counter = 0
+
     for card in cards:
         card_counter = []
         labels = get_issue(card['content_url'])['labels']
-        for label in labels:
-            label_value = label['name']
-            if label_value.isdigit():
-                card_counter.append(int(label_value))
+        label_names = [label["name"] for label in labels]
+        if not any(ign in label_names for ign in IGNORE_LIST):
+            for label_value in label_names:
+                if label_value.isdigit():
+                    card_counter.append(int(label_value))
         if len(card_counter) > 1:
             counter_diff = functools.reduce(lambda a, b: abs(a - b), card_counter)
             counter += counter_diff
@@ -123,18 +126,20 @@ def count_min_points_with_post_bugs(cards):
         values = []
         try:
             labels = get_issue(card['content_url'])['labels']
-            if not "post-meeting" in [l['name'] for l in labels]:
-                for label in labels:
-                    label_value = label['name']
-                    if label_value.isdigit():
-                        values.append(int(label_value))
-                counter_done += min(values)
-            else:
-                for label in labels:
-                    label_value = label['name']
-                    if label_value.isdigit():
-                        values.append(int(label_value))
-                counter_bugs += min(values)
+            label_names = [label["name"] for label in labels]
+            if not any(ign in label_names for ign in IGNORE_LIST):
+                if not "post-meeting" in label_names:
+                    for label in labels:
+                        label_value = label['name']
+                        if label_value.isdigit():
+                            values.append(int(label_value))
+                    counter_done += min(values)
+                else:
+                    for label in labels:
+                        label_value = label['name']
+                        if label_value.isdigit():
+                            values.append(int(label_value))
+                    counter_bugs += min(values)
         except:
             pass
 
@@ -147,12 +152,14 @@ def count_min_points(cards):
         values = []
         try:
             labels = get_issue(card['content_url'])['labels']
-            if not "post-meeting" in [l['name'] for l in labels]:
-                for label in labels:
-                    label_value = label['name']
-                    if label_value.isdigit():
-                        values.append(int(label_value))
-                counter += min(values)
+            label_names = [label["name"] for label in labels]
+            if not any(ign in label_names for ign in IGNORE_LIST):
+                if not "post-meeting" in label_names:
+                    for label in labels:
+                        label_value = label['name']
+                        if label_value.isdigit():
+                            values.append(int(label_value))
+                    counter += min(values)
         except:
             pass
 

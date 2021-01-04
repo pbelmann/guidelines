@@ -43,7 +43,7 @@ The description is followed by automatically generated bullet points, which shou
 Additionally, every PR will be checked by repository-depended [Github actions](https://docs.github.com/en/actions). Depending on the target branch, you will have to wait until these checks have passed before being able to merge.
 
 ## On releases
-The release version names and tags should follow [semantic versioning](http://semver.org/) for all releases except of the cloud-portal-webapp. The release version names and tags of should follow [calender versioning](https://calver.org) (known from e.g. Ubuntu). 
+The release version names and tags should follow [semantic versioning](http://semver.org/) for all releases except of the cloud-portal-webapp. The release version names and tags should follow [calender versioning](https://calver.org) (known from e.g. Ubuntu) in this case. 
 
 ## On repositories
 Each repository should have its own

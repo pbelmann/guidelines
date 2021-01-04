@@ -136,18 +136,19 @@ def create_issue(issue):
 
 
 def add_label_to_issue(labels, issue):
-    params = {"labels": labels}
-    url = "https://api.github.com/repos/{}/{}/issues/{}/labels".format(OWNER, issue.repository,
-                                                                       issue.number)
-    headers = HEADERS
-    r = requests.post(
-        url=url,
-        headers=headers,
-        json=params,
-        hooks={"response": check_for_errors},
+    if len(labels) > 0:
+        params = {"labels": labels}
+        url = "https://api.github.com/repos/{}/{}/issues/{}/labels".format(OWNER, issue.repository,
+                                                                           issue.number)
+        headers = HEADERS
+        r = requests.post(
+            url=url,
+            headers=headers,
+            json=params,
+            hooks={"response": check_for_errors},
 
-    )
-    return r.json()
+        )
+        return r.json()
 
 
 def get_project_columns(project):
@@ -217,12 +218,20 @@ def create_card_for_issue(issue, column):
 
 def values_to_issue_cards(values):
     issue_cards = []
-    for idx,row in enumerate(values):
-        if row[0] and row[1] and row[2] and row[3] and row[4]:
-            new_issue_card = IssueCard(title=row[0], description=row[1], repository=row[2],
-                                       labels=row[3].split(" "),
+    for idx, row in enumerate(values):
+        title = row[0]
+        description = row[1]
+        repo = row[2]
+        labels = row[3]
+        if labels:
+            labels = labels.split(" ")
+        column = row[4]
+        if row[0] and row[2] and row[4]:
+
+            new_issue_card = IssueCard(title=title, description=description, repository=repo,
+                                       labels=labels,
                                        project=WEEKLY_SPRINT_PROJECT,
-                                       column=row[4])
+                                       column=column)
             issue_cards.append(new_issue_card)
         else:
             print(f"Spreadsheet row {idx} is missing some entrys!")
@@ -235,8 +244,7 @@ def create_issues_and_cards(issue_cards):
 
         if not check_if_issue_exist_in_repository(issue=issue):
             issue = create_issue(issue)
-            if issue.labels:
-                add_label_to_issue(labels=issue.labels, issue=issue)
+            add_label_to_issue(labels=issue.labels, issue=issue)
             create_card_for_issue(issue=issue, column=issue_card_column)
 
 

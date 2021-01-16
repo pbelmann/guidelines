@@ -69,7 +69,7 @@ The sprint commissioner is always the second reviewer. He/She makes sure all poi
 This includes adjusting the existing e2e tests if necessary.
 
 * **Security Fixes**
-The sprint commissioner keeps track of the security scans for the cloud-portal-webapp and fixes errors and warnings displayed there.
+The sprint commissioner keeps track of the security scans for all repositories with activated scans and fixes errors and warnings displayed there.
   
 * **Staging**  
 He/She is responsible for ensuring that the staging instance is up-to-date and online at the sprint meeting.

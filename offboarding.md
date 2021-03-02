@@ -1,4 +1,4 @@
-#Offboarding of Team Member
+# Offboarding of Team Member
 
 When a team member leaves a couple of steps need to be taken.
 

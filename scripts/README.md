@@ -4,22 +4,21 @@ There are several scripts available for github that automate the creation, closi
 
 The existing scripts perform the following tasks:
 
-* Closing all isues which are in the "Done" column from the "Weekly Sprint" project.
+* Closing all issues which are in the "Done" column from the "Weekly Sprint" project  *[close_done_issues.py]*
 
-* Create Issues and Cards from a google spreadsheet.
+* Create Issues and Cards from a google spreadsheet. *[create_issue_and_cards.py]*
 
-* Move all cards from "Ready for Sprint Review" to "Done".
+* Move all cards from "Ready for Sprint Review" to "Done". *[move_review_to_done.py]*
+
+* Set all Public Keys from the portal-dev Team to authorized_keys* *[set_portal_dev_team_keys.py]*
 
 ## Preparation
-To use the script you need to install several modules.
+To use the scripts you need to install several modules.
 
 ~~~BASH
 	pip3 install -r requirements.txt
 ~~~
-  or
-~~~BASH
-	make requirements
-~~~
+
 
 You also need a "credentials.json" in the scripts folder, which gives you access to the google spreadsheet. 
   
@@ -27,18 +26,12 @@ You also need a "credentials.json" in the scripts folder, which gives you access
 
 ## Running the Scripts
 
-You can run the scripts directly with (python3 shebang is used):
+You can run the scripts directly with:
 
 ~~~BASH
-	./close_done_issues.py
-	./create_issue_and_cardy.py
-	./move_review_to_done.py
+	python3 close_done_issues.py REPO_SCOPED_TOKEN
+	python3 create_issue_and_cardy.py REPO_SCOPED_TOKEN
+	python3 move_review_to_done.py REPO_SCOPED_TOKEN
+	python3 set_portal_dev_team_keys.py ORG_READ_SCOPED_TOKEN [-replace]
 ~~~
 
-Or using the make commands:
-
-~~~BASH
-	make move_review_to_done
-	make create_issues_and_cards
-	make close_done_cards
-~~~

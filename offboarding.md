@@ -6,7 +6,7 @@ When a team member leaves a couple of steps need to be taken.
   * FORC api key (staging/ development)
   * HAProxy password (staging)
   * HAProxy password (production)
-  * portal-dev.pem
+  * Remove Public Key from Member (per scripts/set_portal_dev_team_keys.py with -replace param)
   
 ### Leave/remove from Teams or Projects:
   * portal-pool-dev (Openstack)
@@ -29,4 +29,3 @@ When a team member leaves a couple of steps need to be taken.
  ### Miscellaneous
  * Prepare employee reference
  * Prepare some beer/cake (if not pandemic)
- 

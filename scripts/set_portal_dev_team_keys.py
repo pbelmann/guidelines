@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 import os
 import sys
+from pathlib import Path
 
 import requests
 
+home = str(Path.home())
+
 ORG = "deNBI"
 TEAM = "portal-dev"
-AUTHORIZED_KEYS = "~/.ssh/authorized_keys"
+AUTHORIZED_KEYS = f"{home}/.ssh/authorized_keys"
 
 try:
     ACCESS_TOKEN = sys.argv[1]

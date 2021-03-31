@@ -45,6 +45,8 @@ The [simpleVMWebGateway](https://github.com/deNBI/simpleVMWebGateway) component 
 The [landing page](https://github.com/deNBI/landing_page) repository contains the needed files for our [Homepage](https://cloud.denbi.de).
 
 # Some useful links
+- [Test-Results](https://portal-dev.denbi.de/test-results/)
+Results of the last test that ran on the staging
 - [Perun](https://perun.elixir-czech.cz)  
 Contains information about groups, resources and members.
 - [Openstack Bielefeld](https://openstack.cebitec.uni-bielefeld.de)  

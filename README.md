@@ -52,6 +52,13 @@ priority. The team develops based on those backlog items tasks which represent t
 Those tasks should not take more time than one working day. 
 The tasks are valued by using story points for estimating the work of the next sprint.
 How to evaluate tasks by using story points is described [here](story_points.md).
+
+### Organisation:
+
+The timeboxing principle is used to shorten the length of meetings and to work efficiently. For this purpose, the team jointly sets timeboxes for the meeting and the parts of the meeting described above. A possible allocation would be, for example, 1 hour for the sprint review, 30 minutes for the retrospective and another hour for planning the following sprint.
+An important role is taken on by the Scrum Master, who monitors the compliance with the time boxes in the interest of meeting efficiency and ensures that the time boxes are adhered to. If a story is not discussed because there is no time left, it moves to the next meeting. Moreover, it should be ensured that discussions and consultations that do not affect the whole team are held in a small group outside of the regular meetings.  
+
+Further information on Timeboxing can be found [here](https://www.visual-paradigm.com/scrum/what-are-scrum-time-boxed-events/).
   
 ## Definition of Done
 We say a task or issue or sprint item is done if  

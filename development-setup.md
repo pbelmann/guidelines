@@ -47,6 +47,8 @@ The [landing page](https://github.com/deNBI/landing_page) repository contains th
 # Some useful links
 - [Test-Results](https://portal-dev.denbi.de/test-results/)
 Results of the last test that ran on the staging
+- [Eslint Intellij](https://www.jetbrains.com/help/idea/eslint.html)
+  Information how to setup Eslint in Intellij
 - [Perun](https://perun.elixir-czech.cz)  
 Contains information about groups, resources and members.
 - [Openstack Bielefeld](https://openstack.cebitec.uni-bielefeld.de)  

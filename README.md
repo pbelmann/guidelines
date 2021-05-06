@@ -86,6 +86,15 @@ into the staging release, is Thursday 16:00 every week. Dev states after this de
 * **Releasing**  
 He/She updates the various changelogs and creates the new releases.
 The releases are based on the state of the staging and can be created as soon as the changes on the staging are reviewed in the meeting by all team members and no issues remain in the "Release-Critical"-column of the sprint-board.
+
+Releases of the following repository should be made when changes are made
+  * [Cloud-API](https://github.com/deNBI/cloud-api)
+  * [Cloud-Webapp](https://github.com/deNBI/cloud-portal-webapp)
+  * [Cloud-Client](https://github.com/deNBI/cloud-portal-client)
+  * [SimpleVMGateway](https://github.com/deNBI/simpleVMWebGateway)
+  * [OS-Credits](https://github.com/deNBI/os_credits)
+  * [Os-Project-Usage-Exporter](https://github.com/deNBI/OS_project_usage_exporter)
+  
   
 * **Bugs**  
 He/She creates the incoming bug issues in github and is initially responsible for them, but can also forward the issues if needed.

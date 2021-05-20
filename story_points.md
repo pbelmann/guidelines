@@ -31,3 +31,9 @@ The sizing process is done the following way:
 - Continue until you have a size on each story
 
 - Use these set of numbers (Fibonacci) while sizing: 1, 2, 3, 5, 8, 13, 21
+
+## Issues labeled with "investigation"
+
+Thinking tasks or tasks which consist mostly of research, can be labeled with the "investigate" tag.
+Especially in the case of issues whose effort is difficult to estimate and where completion can take several sprints, a time constraint can be used to define the time that should be scheduled for this particular task in the current sprint. 
+The effort of these tasks is not included in the regular story points.

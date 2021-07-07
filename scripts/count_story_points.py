@@ -6,7 +6,7 @@ import sys
 import requests
 
 READY_FOR_REVIEW_COLUMN = "Ready for Sprint Review"
-
+RELEASE_CRITICAL_COLUMN = "Release Critical"
 WEEKLY_SPRINT_PROJECT = "Weekly Sprint"
 IN_PROGRESS = "In Progress"
 CURRENT_SPRINT = "Current Sprint"
@@ -176,7 +176,13 @@ def count_done_points(columns):
 def count_done_reevalation(columns):
     column = get_specific_column(filter_name=IN_PROGRESS, columns=columns)
     cards = get_cards_by_columns(column=column)
-    print("Gone to Re-evaluation: {}".format(count_reevaluation_cards(cards)))
+    in_progress_value = count_reevaluation_cards(cards)
+    
+    column = get_specific_column(filter_name=RELEASE_CRITICAL_COLUMN, columns=columns)
+    cards = get_cards_by_columns(column=column)
+    release_critical_value = count_reevaluation_cards(cards)
+    
+    print("Gone to Re-evaluation: {}".format(int(in_progress_value) + int(release_critical_value))
 
 
 def count_planned_points(columns):
@@ -187,10 +193,15 @@ def count_planned_points(columns):
     cards = get_cards_by_columns(column=column)
     bugs_points = count_min_points(cards)
     column = get_specific_column(filter_name=IN_PROGRESS, columns=columns)
-
+    
     cards = get_cards_by_columns(column=column)
     in_progress_planned = count_min_points(cards)
-    full = int(current_points) + int(bugs_points) + int(in_progress_planned)
+    
+    column = get_specific_column(filter_name=RELEASE_CRITICAL_COLUMN, columns=columns)
+    cards = get_cards_by_columns(column=column)
+    release_critical = count_min_points(cards)
+
+    full = int(current_points) + int(bugs_points) + int(in_progress_planned) + int(release_critical)
     print("Planned points: {}".format(full))
 
 

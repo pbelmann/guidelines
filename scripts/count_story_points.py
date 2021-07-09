@@ -182,7 +182,7 @@ def count_done_reevalation(columns):
     cards = get_cards_by_columns(column=column)
     release_critical_value = count_reevaluation_cards(cards)
     
-    print("Gone to Re-evaluation: {}".format(int(in_progress_value) + int(release_critical_value))
+    print("Gone to Re-evaluation: {}".format(int(in_progress_value) + int(release_critical_value)))
 
 
 def count_planned_points(columns):
